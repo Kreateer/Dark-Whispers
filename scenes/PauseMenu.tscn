@@ -1,0 +1,162 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scripts/PauseMenu/PausePopup.gd" type="Script" id=1]
+[ext_resource path="res://scripts/PauseMenu/Pause.gd" type="Script" id=2]
+[ext_resource path="res://scripts/PauseMenu/PauseVolume.gd" type="Script" id=3]
+
+[sub_resource type="ShortCut" id=1]
+
+[sub_resource type="ShortCut" id=2]
+
+[node name="PauseMenu" type="CanvasLayer"]
+pause_mode = 2
+
+[node name="PauseControl" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -960.0
+margin_top = -540.0
+margin_right = 960.0
+margin_bottom = 540.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Pause" type="Button" parent="PauseControl"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -112.0
+margin_top = 8.0
+margin_right = -12.0
+margin_bottom = 58.0
+keep_pressed_outside = true
+shortcut = SubResource( 1 )
+text = "PAUSE"
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PausePopup" type="Popup" parent="PauseControl"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -60.0
+margin_top = -52.0
+margin_right = 60.0
+margin_bottom = 52.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Resume" type="Button" parent="PauseControl/PausePopup" groups=[
+"PauseButtons",
+]]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -50.0
+margin_top = -25.0
+margin_right = 50.0
+margin_bottom = 25.0
+focus_neighbour_bottom = NodePath("../Options")
+focus_next = NodePath("../Options")
+focus_previous = NodePath("../Exit")
+keep_pressed_outside = true
+shortcut = SubResource( 2 )
+text = "Resume"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Options" type="Button" parent="PauseControl/PausePopup" groups=[
+"PauseButtons",
+]]
+margin_left = 10.0
+margin_top = 88.0
+margin_right = 110.0
+margin_bottom = 138.0
+focus_neighbour_top = NodePath("../Resume")
+focus_neighbour_bottom = NodePath("../Exit")
+focus_next = NodePath("../Exit")
+focus_previous = NodePath("../Resume")
+text = "Options"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Exit" type="Button" parent="PauseControl/PausePopup" groups=[
+"PauseButtons",
+]]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -50.0
+margin_top = 96.0
+margin_right = 50.0
+margin_bottom = 146.0
+focus_neighbour_top = NodePath("../Options")
+focus_next = NodePath("../Resume")
+focus_previous = NodePath("../Options")
+text = "Exit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PauseControl/PausePopup"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -44.0
+margin_top = -58.0
+margin_right = 44.0
+margin_bottom = -44.0
+text = "Game Paused"
+align = 1
+valign = 1
+
+[node name="VolumeSlider" type="HSlider" parent="PauseControl/PausePopup" groups=[
+"PauseVolume",
+]]
+visible = false
+margin_left = -4.0
+margin_top = 8.0
+margin_right = 116.0
+margin_bottom = 92.0
+max_value = 1.0
+step = 0.05
+script = ExtResource( 3 )
+
+[node name="Mute" type="Button" parent="PauseControl/PausePopup/VolumeSlider" groups=[
+"PauseVolume",
+]]
+margin_left = 124.0
+margin_top = 32.0
+margin_right = 148.0
+margin_bottom = 52.0
+toggle_mode = true
+text = "M"
+
+[node name="Back" type="Button" parent="PauseControl/PausePopup/VolumeSlider" groups=[
+"PauseVolume",
+]]
+margin_left = 14.0
+margin_top = 80.0
+margin_right = 114.0
+margin_bottom = 130.0
+text = "Back"
+[connection signal="pressed" from="PauseControl/Pause" to="PauseControl/Pause" method="_on_Pause_pressed"]
+[connection signal="pressed" from="PauseControl/PausePopup/Resume" to="PauseControl/PausePopup" method="_on_Resume_pressed"]
+[connection signal="pressed" from="PauseControl/PausePopup/Options" to="PauseControl/PausePopup" method="_on_Options_pressed"]
+[connection signal="pressed" from="PauseControl/PausePopup/Exit" to="PauseControl/PausePopup" method="_on_Exit_pressed"]
+[connection signal="mouse_exited" from="PauseControl/PausePopup/VolumeSlider" to="PauseControl/PausePopup/VolumeSlider" method="release_focus"]
+[connection signal="value_changed" from="PauseControl/PausePopup/VolumeSlider" to="PauseControl/PausePopup/VolumeSlider" method="_on_VolumeSlider_value_changed"]
+[connection signal="toggled" from="PauseControl/PausePopup/VolumeSlider/Mute" to="PauseControl/PausePopup/VolumeSlider" method="_on_Mute_toggled"]
+[connection signal="pressed" from="PauseControl/PausePopup/VolumeSlider/Back" to="PauseControl/PausePopup/VolumeSlider" method="_on_Back_pressed"]

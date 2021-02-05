@@ -1,0 +1,93 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/DeathMenu/DeathPopup.gd" type="Script" id=1]
+
+[node name="DeathMenu" type="CanvasLayer"]
+pause_mode = 2
+
+[node name="DeathControl" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -84.0
+margin_right = 100.0
+margin_bottom = 84.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DeathPopup" type="Popup" parent="DeathControl"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -106.0
+margin_top = -88.0
+margin_right = 106.0
+margin_bottom = 88.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Retry" type="Button" parent="DeathControl/DeathPopup" groups=[
+"DeathButtons",
+]]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -24.5
+margin_top = 46.0
+margin_right = 24.5
+margin_bottom = 66.0
+rect_scale = Vector2( 1.5, 1.5 )
+focus_neighbour_bottom = NodePath("../Exit")
+focus_next = NodePath("../Exit")
+focus_previous = NodePath(".")
+text = "RETRY"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Exit" type="Button" parent="DeathControl/DeathPopup" groups=[
+"DeathButtons",
+]]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -24.5
+margin_top = 82.0
+margin_right = 24.5
+margin_bottom = 102.0
+rect_scale = Vector2( 1.5, 1.5 )
+focus_neighbour_top = NodePath("../Retry")
+focus_next = NodePath("../Retry")
+focus_previous = NodePath(".")
+text = "EXIT"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameOver" type="Label" parent="DeathControl/DeathPopup"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -43.5
+margin_top = -3.0
+margin_right = 29.5
+margin_bottom = 11.0
+rect_scale = Vector2( 1.5, 1.5 )
+text = "Game Over"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="visibility_changed" from="DeathControl/DeathPopup" to="DeathControl/DeathPopup" method="_on_DeathPopup_visibility_changed"]
+[connection signal="pressed" from="DeathControl/DeathPopup/Retry" to="DeathControl/DeathPopup" method="_on_Retry_pressed"]
+[connection signal="pressed" from="DeathControl/DeathPopup/Exit" to="DeathControl/DeathPopup" method="_on_Exit_pressed"]
